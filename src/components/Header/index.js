@@ -1,12 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './style.scss';
 
 import { MdShoppingBasket } from 'react-icons/md';
 
 import logo from '../../assets/imagens/logo.svg';
 
-function Header() {
+function Header({cart}) {
+
   return (
       <div className="container">
           <Link to="/">
@@ -16,7 +18,7 @@ function Header() {
           <Link to="/cart" className="cart">
             <div className="info">
                 <strong>Meu Carrinho</strong>
-                <span>3 itens</span>
+                <span>{cart.length} itens</span>
             </div>
             <MdShoppingBasket size={36} color="#fff"/>
           </Link>
@@ -24,4 +26,6 @@ function Header() {
   )
 }
 
-export default Header;
+export default connect(state =>({
+  cart: state.cart, //Nome do reducer que eu quero acessar 
+}))(Header);
